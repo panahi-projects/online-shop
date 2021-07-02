@@ -23,24 +23,44 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/scss/main.scss',
+    '@/assets/fonts/farsi-font/farsi-fonts.css',
+    '@/assets/css/vendor/bootstrap.rtl.only.min.css',
+    // '@/assets/fonts/iconsmind/style.css',
   ],
+  styleResources: {
+    scss: [
+      '@/assets/scss/_variables.scss',
+      '@/assets/scss/_mixins.scss',
+      '@/assets/scss/_functions.scss',
+    ]
+  },
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '@/plugins/global', ssr: false },
+    { src: '@/plugins/fontawesome', ssr: true },
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
     '@nuxtjs/pwa',
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    '@nuxtjs/fontawesome'
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
+    'bootstrap-vue/nuxt',
+    '@nuxtjs/style-resources'
   ],
+  // bootstrapVue: {
+  //   bootstrapCSS: false,
+  //   bootstrapVueCSS: false
+  // },
   /*
   ** Build configuration
   */
@@ -48,7 +68,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }

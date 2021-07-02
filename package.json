@@ -12,6 +12,9 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@nuxtjs/fontawesome": "^1.1.2",
     "bootstrap-vue": "^2.21.2",
     "nuxt": "^2.15.7"
   },
@@ -19,6 +22,16 @@
     "@nuxt/types": "^2.15.7",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/pwa": "^3.3.5",
-    "husky": "^6.0.0"
+    "@nuxtjs/style-resources": "^1.2.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^7.11.1",
+    "husky": "^6.0.0",
+    "node-sass": "^4.14.1",
+    "prettier": "^2.3.1",
+    "sass-loader": "^10.1.1"
   }
 }
