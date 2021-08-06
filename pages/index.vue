@@ -48,9 +48,15 @@ export default {
     }
   },
   async fetch() {
-    this.productsList = await fetch("https://fakestoreapi.com/products").then(
+    let productsList = await fetch("https://fakestoreapi.com/products").then(
       (res) => res.json()
     );
+    this.productsList = productsList.map((p) => {
+      let rnd_Count = Math.floor(Math.random() * 10);
+      this.$set(p, "stock", rnd_Count);
+      return p;
+    });
+
     console.log("this.productsList", this.productsList);
   },
 };

@@ -3,7 +3,12 @@
     <div class="user-image">
       <img src="/images/user.jpg" alt="user image" />
     </div>
-    <SButton variant="secondary" shadow="shadow-md">My Cart</SButton>
+    <SButton
+      variant="secondary"
+      shadow="shadow-md"
+      :notification="cartItems.length"
+      >My Cart</SButton
+    >
     <SButton>Sign in</SButton>
     <div class="additional-menu display-inline-block">
       <span>Consumer Electronics</span>
@@ -16,6 +21,14 @@ export default {
   components: { SButton },
   data() {
     return {};
+  },
+  computed: {
+    cartItems: {
+      get() {
+        return this.$store.getters["cart/getCart"];
+      },
+      set(value) {},
+    },
   },
 };
 </script>

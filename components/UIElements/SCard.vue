@@ -23,9 +23,17 @@
           <SRating :score="randomScore" />
         </div>
         <div class="col-6 save-btn">
-          <SButton>
-            <font-awesome-icon icon="heart" />
-            <span>Save</span>
+          <SButton
+            @click="onAddToCart"
+            :disabled="item.stock <= 0 ? true : false"
+          >
+            <template v-if="item.stock >= 1">
+              <font-awesome-icon icon="heart" />
+              <span>Save</span>
+            </template>
+            <template v-else>
+              <span class="fs-8">Out of Stock</span>
+            </template>
           </SButton>
         </div>
       </div>
@@ -50,9 +58,17 @@ export default {
       },
     },
   },
+  methods: {
+    onAddToCart() {
+      if (this.item.stock >= 1) {
+        this.$store.dispatch("cart/addToCart", this.item);
+        this.item.stock -= 1;
+      }
+    },
+  },
   computed: {
     randomScore() {
-      return (Math.random() * 5).toFixed(2);
+      return parseFloat((Math.random() * 5).toFixed(2));
     },
   },
 };
