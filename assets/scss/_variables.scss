@@ -42,5 +42,82 @@ $colors: (
     "gray-dark": $gray-800,
 ) !default;
 
-$body-background-color: #fff;
 $maxWidth: 1600px;
+$container-max-widths: (
+    "vsm": 320px,
+    "sm": 540px,
+    "md": 720px,
+    "lg": 960px,
+    "x": 1300px,
+    "xl": 1640px,
+    "xxl": 1700px,
+    "xxxl": 1850px,
+) !default;
+
+$laptop-columns-widths: (
+    "col-1": 8.33%,
+    "col-2": 16.66%,
+    "col-3": 25%,
+    "col-4": 33.33%,
+    "col-5": 41.66%,
+    "col-6": 50%,
+    "col-7": 58.33%,
+    "col-8": 66.66%,
+    "col-9": 75%,
+    "col-10": 83.33%,
+    "col-11": 91.66%,
+    "col-12": 100%,
+);
+$normal-desktop-columns-widths: (
+    "col-1": 16.66%,
+    "col-2": 16.66%,
+);
+$tablet-desktop-columns-widths: (
+    "col-1": 16.66%,
+    "col-2": 25%,
+    "col-3": 50%,
+    "col-11": 100%,
+    "col-12": 100%,
+);
+$large-mobile-columns-widths: (
+    "col-1": 50%,
+    "col-2": 50%,
+    "col-3": 100%,
+    "col-4": 100%,
+    "col-5": 100%,
+    "col-6": 100%,
+    "col-7": 100%,
+    "col-8": 100%,
+    "col-9": 100%,
+    "col-10": 100%,
+    "col-11": 100%,
+    "col-12": 100%,
+);
+$small-mobile-columns-widths: (
+    "col-1": 50%,
+    "col-2": 50%,
+    "col-3": 100%,
+    "col-4": 100%,
+    "col-5": 100%,
+    "col-6": 100%,
+    "col-7": 100%,
+    "col-8": 100%,
+    "col-9": 100%,
+    "col-10": 100%,
+    "col-11": 100%,
+    "col-12": 100%,
+);
+$very-small-mobile-columns-widths: (
+    "col-1": 50%,
+    "col-2": 50%,
+    "col-3": 100%,
+    "col-4": 100%,
+    "col-5": 100%,
+    "col-6": 100%,
+    "col-7": 100%,
+    "col-8": 100%,
+    "col-9": 100%,
+    "col-10": 100%,
+    "col-11": 100%,
+    "col-12": 100%,
+);

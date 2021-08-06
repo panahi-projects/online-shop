@@ -8,3 +8,6 @@
 @mixin transparentBackground($color, $percent) {
     background-color: rgba($color, $percent);
 }
+@mixin shadow-md($color, $percent) {
+    background-color: rgba($color, $percent);
+}

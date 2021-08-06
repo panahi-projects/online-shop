@@ -24,8 +24,7 @@ export default {
   */
   css: [
     '@/assets/scss/main.scss',
-    '@/assets/fonts/farsi-font/farsi-fonts.css',
-    '@/assets/css/vendor/bootstrap.rtl.only.min.css',
+    '@/assets/fonts/font.css',
     // '@/assets/fonts/iconsmind/style.css',
   ],
   styleResources: {
@@ -54,7 +53,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    'bootstrap-vue/nuxt',
+    '@nuxt/http',
     '@nuxtjs/style-resources'
   ],
   // bootstrapVue: {

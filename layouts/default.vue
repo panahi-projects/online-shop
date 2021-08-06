@@ -1,12 +1,12 @@
 <template>
-  <div id="wrapper" class="rtl farsi">
+  <div id="wrapper">
     <header>
       <AppHeader :cartItems="cartItems" />
     </header>
-    <nuxt />
-    <footer>
+    <nuxt keep-alive :keep-alive-props="{ max: 30 }" />
+    <!-- <footer>
       <AppFooter />
-    </footer>
+    </footer> -->
   </div>
 </template>
 <script>
@@ -28,8 +28,7 @@ export default {
         },
         {
           id: "2",
-          name:
-            "کامپیوتر همه کاره 21.5 اینچی اپل مدل iMac MHK23 2020 با صفحه نمایش رتینا 4K",
+          name: "کامپیوتر همه کاره 21.5 اینچی اپل مدل iMac MHK23 2020 با صفحه نمایش رتینا 4K",
           quantity: 2,
           price: 42000000,
           image: "/sample-images/x1.jpg",
@@ -46,8 +45,6 @@ export default {
   box-sizing: border-box;
 }
 body {
-  font-family: iranyekan, Tahoma, "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: $color_light;
+  background-color: $body-background-color;
 }
 </style>

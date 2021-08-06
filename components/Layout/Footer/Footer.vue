@@ -8,7 +8,7 @@
   width: 100%;
   height: 60px; /* Height of the footer */
   background: $gray-100;
-  background-color: $color_terinary;
+  background-color: $color_tertiary;
   min-height: 50px;
   .content {
     @include content-container;

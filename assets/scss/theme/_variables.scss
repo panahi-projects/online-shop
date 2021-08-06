@@ -1,17 +1,48 @@
-$color_primary: #eb3e32; //header, buttons, links ...
-$color_primary_hot: #d52115; //badges, labels ...
-$color_secondary: #363f4d; //buttons ...
-$color_info: #586985; //buttons ...
-$color_terinary: #bfbfbf; //footer, cards ...
-$color_light: #f7f7f7; //body, background ...
-$color_light_gray: #ebebeb; //borders ...
+$color_primary: #2264d1;
+$color_primary2: #2979ff;
+$color_primary_pale: #9dc2ff;
+$color_primary_very_pale: rgba(209, 225, 255, 0.438);
+$color_primary_hot: #d52115;
+$color_secondary: #363f4d;
+$color_secondary_pale: #ededf0;
+$color_secondary_very_pale: #f7f7fa;
+$color_info: #586985;
+$color_tertiary: #bfbfbf;
+$color_quaternary: #ededf0;
+$color_light: #f7f7f7;
+$color_light_gray: #ebebeb;
 $color_social: #eb3b60;
 $color_borders: #eceff8;
 $color_base: #fff;
-$color_primary_text: #7a7a7a;
-$color_selection: #91b2c3;
-$color_cartbutton: #37475b;
-$color_text: #363636;
-$color_text_theme: #f10;
-$color_label: #626262;
-$color_responsive_gray: #606060;
+
+$color_primary_text: #3a3a3a;
+$color_secondary_text: #727272;
+$color_tertiary_text: #9b9b9b;
+$color_text_pale: #5e5f6a;
+
+$body-background-color: #fff;
+$body-foreground-color: #2e2e2e;
+
+$themeColors: (
+    "color_primary": $color_primary,
+    "color_primary_pale": $color_primary_pale,
+    "color_primary_very_pale": $color_primary_very_pale,
+    "color_primary_hot": $color_primary_hot,
+    "color_secondary": $color_secondary,
+    "color_secondary_pale": $color_secondary_pale,
+    "color_secondary_very_pale": $color_secondary_very_pale,
+    "color_info": $color_info,
+    "color_tertiary": $color_tertiary,
+    "color_quaternary": $color_quaternary,
+    "color_light": $color_light,
+    "color_light_gray": $color_light_gray,
+    "color_social": $color_social,
+    "color_borders": $color_borders,
+    "color_base": $color_base,
+    "color_primary_text": $color_primary_text,
+    "color_secondary_text": $color_secondary_text,
+    "color_tertiary_text": $color_tertiary_text,
+    "color_text_pale": $color_text_pale,
+    "body-background-color": $body-background-color,
+    "body-foreground-color": $body-foreground-color,
+) !default;
