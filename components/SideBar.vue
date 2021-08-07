@@ -17,6 +17,7 @@
         <SBadge
           v-for="(filterItem, filterIndex) in filters"
           :hasRemoveIcon="true"
+          @remove="onRemoveFilter(filterIndex, filterItem)"
         >
           {{ filterItem.item.value }}
         </SBadge>
@@ -31,7 +32,8 @@
           <SCheckbox
             v-for="i in fi.items"
             :item="i"
-            :reset="resetFilters"
+            :collection="filters"
+            :category="fi.title"
             @change="onToggleFilter"
             >{{ i.value }}</SCheckbox
           >
@@ -57,6 +59,7 @@ export default {
   data() {
     return {
       filters: [],
+      removedItem: {},
     };
   },
   computed: {
@@ -77,10 +80,17 @@ export default {
     },
   },
   methods: {
+    onRemoveFilter(index, item) {
+      this.removedItem = { ...item };
+      this.filters.splice(index, 1);
+    },
     onClearFilters() {
       this.filters = [];
     },
     onToggleFilter(item) {
+      if (item) {
+        delete item.event;
+      }
       if (item.status) {
         this.filters.push(item);
       } else {

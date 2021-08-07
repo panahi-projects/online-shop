@@ -8,6 +8,7 @@
   >
     <span
       v-if="hasRemoveIcon"
+      @click="onRemove"
       class="remove fs-24 theme-fg-color_primary pointer"
       >&times;</span
     >
@@ -24,6 +25,11 @@ export default {
     theme: {
       default: "light",
       type: String,
+    },
+  },
+  methods: {
+    onRemove() {
+      this.$emit("remove");
     },
   },
 };

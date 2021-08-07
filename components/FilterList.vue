@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-6">
       <span class="m-r-10 m-t-10 display-inline-block">
-        <SSelect label="SORT BY" theme="dark"></SSelect>
+        <SSelect label="SORT BY" theme="dark" :values="sortBy"></SSelect>
       </span>
       <span class="m-r-10 m-t-10 display-inline-block">
         <SSelect theme="pale" placeholder="Condition"></SSelect>
@@ -57,6 +57,16 @@ export default {
           title: "",
           isActive: true,
           icon: "th-large",
+        },
+      ],
+      sortBy: [
+        {
+          key: "highest_price",
+          value: "Highest Price",
+        },
+        {
+          key: "lowest_price",
+          value: "Lowest Price",
         },
       ],
     };

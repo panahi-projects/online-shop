@@ -21,7 +21,12 @@
                   />
                 </div>
                 <div class="col-12 m-t-32">
-                  <ProductsList :items="productsList" />
+                  <template v-if="filteredProductsList.length">
+                    <ProductsList :items="filteredProductsList" />
+                  </template>
+                  <template v-else>
+                    <ProductsList :items="productsList" />
+                  </template>
                 </div>
               </div>
             </div>
@@ -39,6 +44,7 @@ export default {
   data() {
     return {
       productsList: [],
+      filteredProductsList: [],
       filterItems: [],
       brandList: [
         "Nike",
@@ -72,7 +78,51 @@ export default {
       return p;
     });
   },
+  computed: {
+    filters() {
+      return this.$store.getters["productsFilters/getFilters"];
+    },
+  },
   watch: {
+    filters: {
+      handler(newVal) {
+        console.log("FILTERS...", newVal);
+        if (newVal?.length) {
+          const myArrayFiltered = this.productsList.filter((el) => {
+            return newVal.some((f) => {
+              let min;
+              let max;
+              if (f.category === "Price") {
+                let isPriceRange = f.item.key.split("-");
+                let isNumber = !isNaN(isPriceRange[0]);
+                if (isNumber) {
+                  min = parseInt(isPriceRange[0]);
+                  max = !isNaN(isPriceRange[1])
+                    ? parseInt(isPriceRange[1])
+                    : -1;
+                }
+              }
+              console.log("min", min);
+              console.log("max", max);
+              console.log("f.item", f.item);
+              console.log("el", el);
+              if (min && max) {
+                return (
+                  f.item.key === el.brand && el.price >= min && el.price <= max
+                );
+              } else {
+                return f.item.key === el.brand && f.category === "Brands";
+              }
+            });
+          });
+          console.log("myArrayFiltered>>", myArrayFiltered);
+          this.filteredProductsList = myArrayFiltered;
+        } else {
+          this.filteredProductsList = this.productsList;
+        }
+      },
+      deep: true,
+    },
     productsList: {
       handler(newVal, oldVal) {
         if (newVal?.length) {

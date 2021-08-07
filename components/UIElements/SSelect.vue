@@ -8,9 +8,7 @@
     ></label>
     <select name="select" :id="`select_${ID}`">
       <option selected disabled>{{ placeholder }}</option>
-      <option value="1">Pure CSS</option>
-      <option value="2">No JS</option>
-      <option value="3">Nice!</option>
+      <option v-for="(v, idx) in values" :value="v.key">{{ v.value }}</option>
     </select>
   </div>
 </template>
@@ -28,6 +26,12 @@ export default {
     placeholder: {
       type: String,
       default: "Choose an option",
+    },
+    values: {
+      type: Array,
+      default: () => {
+        return [];
+      },
     },
   },
   data() {

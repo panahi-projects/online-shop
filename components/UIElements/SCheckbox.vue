@@ -26,9 +26,15 @@ export default {
       type: Object,
       default: {},
     },
-    reset: {
-      type: Boolean,
-      default: false,
+    category: {
+      type: String,
+      default: "",
+    },
+    collection: {
+      type: Array,
+      default: () => {
+        return [];
+      },
     },
   },
   data() {
@@ -41,17 +47,22 @@ export default {
     this.ID = this._generateID(6);
   },
   watch: {
-    reset(newVal) {
-      if (newVal) {
-        console.log("before.val", this.val);
-        this.val = false;
-        console.log("after.val", this.val);
-      }
+    collection: {
+      handler(newVal) {
+        if (newVal) {
+          let found = newVal.find((x) => x.item.key == this.item.key);
+          if (!found) {
+            this.val = false;
+          }
+        }
+      },
+      deep: true,
     },
   },
   methods: {
     onChange(val, e) {
       let obj = {
+        category: this.category,
         status: val,
         item: this.item,
         event: e,
