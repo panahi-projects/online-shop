@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-3">
         <div class="m-r-12">
-          <SideBar />
+          <SideBar :filterItems="filterItems" />
         </div>
       </div>
       <div class="col-9">
@@ -39,6 +39,16 @@ export default {
   data() {
     return {
       productsList: [],
+      filterItems: [],
+      brandList: [
+        "Nike",
+        "Adidas",
+        "Microsoft",
+        "Xiaomi",
+        "Samsung",
+        "Apple",
+        "Huawei",
+      ],
     };
   },
   activated() {
@@ -54,10 +64,77 @@ export default {
     this.productsList = productsList.map((p) => {
       let rnd_Count = Math.floor(Math.random() * 10);
       this.$set(p, "stock", rnd_Count);
+      this.$set(
+        p,
+        "brand",
+        this.brandList[Math.floor(Math.random() * this.brandList.length - 1)]
+      );
       return p;
     });
+  },
+  watch: {
+    productsList: {
+      handler(newVal, oldVal) {
+        if (newVal?.length) {
+          let setOfBrands = new Set();
 
-    console.log("this.productsList", this.productsList);
+          let brands = [];
+          let prices = [];
+
+          let MinPrice = Math.min.apply(
+            Math,
+            newVal.map(function (o) {
+              return o.price;
+            })
+          );
+          let MaxPrice = Math.max.apply(
+            Math,
+            newVal.map(function (o) {
+              return o.price;
+            })
+          );
+          let diff = MaxPrice - MinPrice;
+          let steps = diff / 9;
+
+          for (const i of newVal) {
+            setOfBrands.add(i.brand);
+          }
+          for (const s of Array.from(setOfBrands)) {
+            if (s) {
+              let obj = {
+                key: s,
+                value: s,
+              };
+              brands.push(obj);
+            }
+          }
+          for (let i = MinPrice; i < MaxPrice; i += steps) {
+            let obj = {
+              key: `${parseInt(i)}-${parseInt(i + steps)}`,
+              value: `${parseInt(i)} $ - ${parseInt(i + steps)} $`,
+            };
+            if (i + steps >= MaxPrice) {
+              obj.value = `${parseInt(i)} $ and Higher`;
+            }
+            prices.push(obj);
+          }
+
+          this.filterItems = [
+            {
+              id: 1,
+              title: "Brands",
+              items: [...brands],
+            },
+            {
+              id: 2,
+              title: "Price",
+              items: [...prices],
+            },
+          ];
+        }
+      },
+      deep: true,
+    },
   },
 };
 </script>

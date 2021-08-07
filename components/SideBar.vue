@@ -5,35 +5,35 @@
         <h3>Filter By</h3>
       </div>
       <div class="col-6">
-        <span class="theme-fg-color_primary fw-400 clear-filter"
+        <span
+          @click="onClearFilters"
+          class="theme-fg-color_primary fw-400 clear-filter pointer"
           >Clear Filters</span
         >
       </div>
     </section>
     <section class="middle">
-      <div class="badges">
-        <SBadge :hasRemoveIcon="true">100 $ - 200 $</SBadge>
-        <SBadge :hasRemoveIcon="true">Brand 2</SBadge>
-        <SBadge :hasRemoveIcon="true">Brand 5</SBadge>
-        <SBadge :hasRemoveIcon="true">Brand 8</SBadge>
+      <div v-if="filters.length" class="badges">
+        <SBadge
+          v-for="(filterItem, filterIndex) in filters"
+          :hasRemoveIcon="true"
+        >
+          {{ filterItem.item.value }}
+        </SBadge>
       </div>
     </section>
-    <section class="content">
-      <SCollapse>
+    <section v-if="filterItems.length" class="content">
+      <SCollapse v-for="(fi, idx) in filterItems">
         <template v-slot:title>
-          <h5 class="fw-600">Brands</h5>
+          <h5 class="fw-600">{{ fi.title }}</h5>
         </template>
-        <template v-slot:content>
-          <SCheckbox v-for="i in 6">Brand {{ i }}</SCheckbox>
-        </template>
-      </SCollapse>
-      <SCollapse>
-        <template v-slot:title>
-          <h5 class="fw-600">Price</h5>
-        </template>
-        <template v-slot:content>
-          <SCheckbox v-for="i in prices"
-            >{{ i.from }} $ - {{ i.to }} $</SCheckbox
+        <template v-if="fi.items && fi.items.length" v-slot:content>
+          <SCheckbox
+            v-for="i in fi.items"
+            :item="i"
+            :reset="resetFilters"
+            @change="onToggleFilter"
+            >{{ i.value }}</SCheckbox
           >
         </template>
       </SCollapse>
@@ -46,19 +46,49 @@ import SCollapse from "@/components/UIElements/SCollapse.vue";
 import SCheckbox from "@/components/UIElements/SCheckbox.vue";
 export default {
   components: { SBadge, SCollapse, SCheckbox },
+  props: {
+    filterItems: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
+  },
   data() {
-    return {};
+    return {
+      filters: [],
+    };
   },
   computed: {
-    prices() {
-      return [
-        { from: 0, to: 10 },
-        { from: 10, to: 50 },
-        { from: 50, to: 100 },
-        { from: 100, to: 200 },
-        { from: 200, to: 300 },
-        { from: 300, to: "and higher" },
-      ];
+    resetFilters() {
+      return this.filters.length == 0 ? true : false;
+    },
+  },
+  watch: {
+    filters: {
+      handler(newVal) {
+        if (newVal?.length) {
+          this.$store.dispatch("productsFilters/addToFilters", newVal);
+        } else {
+          this.$store.dispatch("productsFilters/addToFilters", []);
+        }
+      },
+      deep: true,
+    },
+  },
+  methods: {
+    onClearFilters() {
+      this.filters = [];
+    },
+    onToggleFilter(item) {
+      if (item.status) {
+        this.filters.push(item);
+      } else {
+        let filterIndex = this.filters.findIndex(
+          (x) => x.item.key == item.item.key
+        );
+        this.filters.splice(filterIndex, 1);
+      }
     },
   },
 };
@@ -67,5 +97,10 @@ export default {
 .clear-filter {
   text-align: right;
   display: block;
+  transition: 0.3s;
+  &:hover,
+  &:focus {
+    color: $color_primary2;
+  }
 }
 </style>

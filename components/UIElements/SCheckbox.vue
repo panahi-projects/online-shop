@@ -1,6 +1,12 @@
 <template>
   <div class="SCheckbox">
-    <input type="checkbox" v-model="val" :id="ID" class="hidden-checkbox" />
+    <input
+      @change="onChange(val, $event)"
+      type="checkbox"
+      v-model="val"
+      :id="ID"
+      class="hidden-checkbox"
+    />
     <div class="visible-checkbox">
       <span class="checkbox" :class="val ? 'checked' : ''"></span>
       <label :for="ID" :class="val ? 'fw-600' : ''">
@@ -16,6 +22,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    item: {
+      type: Object,
+      default: {},
+    },
+    reset: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -25,6 +39,25 @@ export default {
   },
   mounted() {
     this.ID = this._generateID(6);
+  },
+  watch: {
+    reset(newVal) {
+      if (newVal) {
+        console.log("before.val", this.val);
+        this.val = false;
+        console.log("after.val", this.val);
+      }
+    },
+  },
+  methods: {
+    onChange(val, e) {
+      let obj = {
+        status: val,
+        item: this.item,
+        event: e,
+      };
+      this.$emit("change", obj);
+    },
   },
 };
 </script>

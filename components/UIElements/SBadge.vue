@@ -1,6 +1,6 @@
 <template>
   <span
-    class="SBadge fs-15"
+    class="SBadge fs-15 m-r-4 m-b-8"
     :class="[
       theme == 'light' ? 'SBadge-light' : 'SBadge-dark',
       hasRemoveIcon ? 'p-r-36' : '',

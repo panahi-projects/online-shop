@@ -4,6 +4,7 @@ $color_primary_pale: #9dc2ff;
 $color_primary_very_pale: rgba(209, 225, 255, 0.438);
 $color_primary_hot: #d51545;
 $color_secondary: #363f4d;
+$color_secondary-dark: #232b38;
 $color_secondary_pale: #ededf0;
 $color_secondary_very_pale: #f7f7fa;
 $color_info: #586985;
@@ -45,4 +46,5 @@ $themeColors: (
     "color_text_pale": $color_text_pale,
     "body-background-color": $body-background-color,
     "body-foreground-color": $body-foreground-color,
+    "color_secondary-dark": $color_secondary-dark,
 ) !default;
