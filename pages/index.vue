@@ -12,12 +12,13 @@
             <div class="theme-border-color_secondary_pale radius-8 p-10 m-b-64">
               <div class="row">
                 <div class="col-12">
-                  <FilterList></FilterList>
+                  <FilterList @data="onGetData"></FilterList>
                 </div>
                 <div class="col-12 m-t-32">
                   <SInput
                     type="search"
                     placeholder="Search the product you are looking for..."
+                    @input="onSearch"
                   />
                 </div>
                 <div class="col-12 m-t-32">
@@ -88,34 +89,55 @@ export default {
       handler(newVal) {
         console.log("FILTERS...", newVal);
         if (newVal?.length) {
-          const myArrayFiltered = this.productsList.filter((el) => {
-            return newVal.some((f) => {
-              let min;
-              let max;
-              if (f.category === "Price") {
-                let isPriceRange = f.item.key.split("-");
-                let isNumber = !isNaN(isPriceRange[0]);
-                if (isNumber) {
-                  min = parseInt(isPriceRange[0]);
-                  max = !isNaN(isPriceRange[1])
-                    ? parseInt(isPriceRange[1])
-                    : -1;
-                }
-              }
-              console.log("min", min);
-              console.log("max", max);
-              console.log("f.item", f.item);
-              console.log("el", el);
-              if (min && max) {
-                return (
-                  f.item.key === el.brand && el.price >= min && el.price <= max
-                );
-              } else {
+          var myArrayFiltered = [];
+          let brandsFilter = newVal.filter((x) => x.category == "Brands");
+          if (brandsFilter?.length) {
+            myArrayFiltered = this.productsList.filter((el) => {
+              return brandsFilter.some((f) => {
                 return f.item.key === el.brand && f.category === "Brands";
-              }
+              });
             });
-          });
-          console.log("myArrayFiltered>>", myArrayFiltered);
+          }
+
+          let priceFilter = newVal.filter((x) => x.category == "Price");
+          if (priceFilter?.length) {
+            let filteredByBrand = myArrayFiltered?.length
+              ? myArrayFiltered
+              : this.productsList;
+
+            myArrayFiltered = filteredByBrand.filter((el) => {
+              debugger;
+              return priceFilter.some((f) => {
+                debugger;
+                let min;
+                let max;
+                if (f.category === "Price") {
+                  let isPriceRange = f.item.key.split("-");
+                  let isNumber = !isNaN(isPriceRange[0]);
+                  if (isNumber) {
+                    min = parseInt(isPriceRange[0]);
+                    max = !isNaN(isPriceRange[1])
+                      ? parseInt(isPriceRange[1])
+                      : -1;
+                  }
+                  if (typeof min == "number" && typeof max == "number") {
+                    if (max === -1) {
+                      return el.price >= min;
+                    } else {
+                      return el.price >= min && el.price <= max;
+                    }
+                  } else {
+                    return f;
+                  }
+                } else {
+                  return f;
+                }
+              });
+            });
+          }
+
+          debugger;
+          console.log("myArrayFiltered 2:", myArrayFiltered);
           this.filteredProductsList = myArrayFiltered;
         } else {
           this.filteredProductsList = this.productsList;
@@ -184,6 +206,55 @@ export default {
         }
       },
       deep: true,
+    },
+  },
+  methods: {
+    onGetData(data) {
+      console.log("data", data);
+      if (data) {
+        if (this.filteredProductsList?.length) {
+          if (data.sortBy == "lowest_price") {
+            this.filteredProductsList.sort((a, b) =>
+              a.price > b.price ? 1 : b.price > a.price ? -1 : 0
+            );
+          } else {
+            this.filteredProductsList.sort((a, b) =>
+              a.price > b.price ? -1 : b.price > a.price ? 1 : 0
+            );
+          }
+        } else if (this.productsList?.length) {
+          if (data.sortBy == "lowest_price") {
+            this.productsList.sort((a, b) =>
+              a.price > b.price ? 1 : b.price > a.price ? -1 : 0
+            );
+          } else {
+            this.productsList.sort((a, b) =>
+              a.price > b.price ? -1 : b.price > a.price ? 1 : 0
+            );
+          }
+        }
+      }
+    },
+    onSearch(e) {
+      /*
+      debounce causes the function triggers 600 millieseconds after entering values.
+      [600ms is the default value for delay, it is possible to customize it by set it as the second parameters of the '_debounce()' method. 
+       e.g: _debounce(() => {}, 700)]
+      */
+      const search = this._debounce((val) => {
+        if (val) {
+          if (this.productsList.length) {
+            let filteredProductsList = this.productsList.filter((x) =>
+              x.title.toLowerCase().includes(val.toLowerCase())
+            );
+            this.filteredProductsList = filteredProductsList;
+            console.log("filteredProductsList", filteredProductsList);
+          }
+        } else {
+          this.filteredProductsList = [];
+        }
+      });
+      search(e.value);
     },
   },
 };

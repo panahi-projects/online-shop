@@ -2,7 +2,12 @@
   <div class="row">
     <div class="col-6">
       <span class="m-r-10 m-t-10 display-inline-block">
-        <SSelect label="SORT BY" theme="dark" :values="sortBy"></SSelect>
+        <SSelect
+          label="SORT BY"
+          theme="dark"
+          :values="sortBy"
+          @change="onChangeSorting"
+        ></SSelect>
       </span>
       <span class="m-r-10 m-t-10 display-inline-block">
         <SSelect theme="pale" placeholder="Condition"></SSelect>
@@ -69,7 +74,22 @@ export default {
           value: "Lowest Price",
         },
       ],
+      selectedItems: {},
     };
+  },
+  methods: {
+    onChangeSorting(e) {
+      console.log("e:", e);
+      this.$set(this.selectedItems, "sortBy", e.value);
+    },
+  },
+  watch: {
+    selectedItems: {
+      handler(newVal) {
+        this.$emit("data", newVal);
+      },
+      deep: true,
+    },
   },
 };
 </script>

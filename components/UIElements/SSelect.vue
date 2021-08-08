@@ -6,7 +6,12 @@
       class="select-label"
       :for="`select_${ID}`"
     ></label>
-    <select name="select" :id="`select_${ID}`">
+    <select
+      @change="onChange"
+      v-model="value"
+      name="select"
+      :id="`select_${ID}`"
+    >
       <option selected disabled>{{ placeholder }}</option>
       <option v-for="(v, idx) in values" :value="v.key">{{ v.value }}</option>
     </select>
@@ -37,10 +42,20 @@ export default {
   data() {
     return {
       ID: "",
+      value: this.placeholder || "",
     };
   },
   mounted() {
     this.ID = this._generateID(6);
+  },
+  methods: {
+    onChange(e) {
+      let obj = {
+        value: this.value,
+        event: e,
+      };
+      this.$emit("change", obj);
+    },
   },
 };
 </script>

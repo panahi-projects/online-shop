@@ -42,15 +42,32 @@ export default {
   line-height: 2.9;
   font-weight: 500;
   color: $color_secondary_text;
+}
+.left-side {
+  float: left;
+  margin-left: 50px;
+  span {
+    padding: 4px 16px;
+  }
+}
+.right-side {
+  float: right;
+}
+@media only screen and (max-width: 767px) {
   .left-side {
-    float: left;
-    margin-left: 50px;
+    float: none;
+    margin: auto;
     span {
       padding: 4px 16px;
     }
+    display: block;
+    text-align: center;
   }
+  .site-logo,
   .right-side {
-    float: right;
+    float: none;
+    display: block;
+    text-align: center;
   }
 }
 </style>

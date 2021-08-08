@@ -222,4 +222,10 @@ export default {
 .show-cart {
   clip-path: circle(150% at top right);
 }
+@media only screen and (max-width: 767px) {
+  .cart-button {
+    text-align: center;
+    display: block;
+  }
+}
 </style>

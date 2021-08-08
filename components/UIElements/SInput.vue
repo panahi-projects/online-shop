@@ -4,6 +4,8 @@
       <font-awesome-icon icon="search" />
     </span>
     <input
+      @input="onInput"
+      v-model="value"
       :type="type"
       :placeholder="placeholder"
       :class="[styleClasses, type == 'search' ? 'p-l-64' : '']"
@@ -34,9 +36,23 @@ export default {
       default: "",
     },
   },
+  data() {
+    return {
+      value: "",
+    };
+  },
   computed: {
     styleClasses() {
       return `${this.size} ${this.classes}`;
+    },
+  },
+  methods: {
+    onInput(e) {
+      let obj = {
+        value: this.value,
+        event: e,
+      };
+      this.$emit("input", obj);
     },
   },
 };
