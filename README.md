@@ -2,6 +2,8 @@
 
 > My magnificent Nuxt.js project
 
+Demo on Vercel: https://my-online-shop-blond.vercel.app/
+
 ## Build Setup
 
 ``` bash
